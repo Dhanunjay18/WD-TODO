@@ -3,3 +3,5 @@
 
 npm test
 npm test
+npx lint-staged
+npm test
