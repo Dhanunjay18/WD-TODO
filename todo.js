@@ -19,7 +19,7 @@ const todoList = () => {
     const today = formatDate(todayDate);
 
     const ans = all.filter((k) => {
-      return k.dueDate < today ? true : false;
+      return k.dueDate < today;
     });
 
     return ans;
@@ -45,7 +45,7 @@ const todoList = () => {
     const today = formatDate(todayDate);
 
     const ans = all.filter((k) => {
-      return k.dueDate === today ? true : false;
+      return k.dueDate === today;
     });
 
     return ans;
@@ -72,26 +72,29 @@ const todoList = () => {
     const today = formatDate(todayDate);
 
     const ans = all.filter((k) => {
-      return k.dueDate > today ? true : false;
+      return k.dueDate > today;
     });
 
     return ans;
   };
 
   const toDisplayableList = (list) => {
-    const todayDate = new Date();
-    const today = formatDate(todayDate);
+    // const todayDate = new Date();
+    // const today = formatDate(todayDate);
 
     const arr = list.map((k) => {
-      if (list[0].dueDate === today) {
-        if (!k.completed) return "[ ]" + " " + k.title;
-        return "[x]" + " " + k.title;
-      } else {
-        if (!k.completed) return "[ ] " + k.title + " " + k.dueDate;
-        return "[x] " + k.title + " " + k.dueDate;
-      }
+      // if (list[0].dueDate === today) {
+      //   if (!k.completed) return '[ ]' + ' ' + k.title;
+      //   return '[x]' + ' ' + k.title;
+      // } else {
+      //   if (!k.completed) return '[ ] ' + k.title + ' ' + k.dueDate;
+      //   return '[x] ' + k.title + ' ' + k.dueDate;
+      // }
+      const statusComplettion = k.completed ? "[x]" : "[ ]";
+      const datetobedisplayed =
+        k.dueDate === new Date().toLocaleDateString("en-CA") ? "" : k.dueDate;
+      return statusComplettion + " " + k.title + " " + datetobedisplayed;
     });
-
     return arr.join("\n");
   };
 
@@ -108,23 +111,20 @@ const todoList = () => {
 };
 
 module.exports = todoList;
-
-// const todos = todoList();
-
-// const formattedDate = (d) => {
-//   return d.toISOString().split('T')[0];
+// const formatDate = (dd) => {
+//   return dd.toISOString().split('T')[0];
 // };
-
 // const dateToday = new Date();
-// const today = formattedDate(dateToday);
-// const yesterday = formattedDate(
+// const today = formatDate(dateToday);
+// const yesterday = formatDate(
 //     new Date(new Date().setDate(dateToday.getDate() - 1)),
 // );
-// const tomorrow = formattedDate(
+// const tomorrow = formatDate(
 //     new Date(new Date().setDate(dateToday.getDate() + 1)),
 // );
 
 // // eslint-disable-next-line max-len, max-len
+// const todos = todoList();
 // todos.add({title: 'Submit assignment', dueDate: yesterday, completed: false});
 // todos.add({title: 'Pay rent', dueDate: today, completed: true});
 // todos.add({title: 'Service Vehicle', dueDate: today, completed: false});
