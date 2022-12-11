@@ -30,10 +30,7 @@ module.exports = (sequelize, DataTypes) => {
       console.log("Due Today");
       console.log(
         (await Todo.dueToday())
-          .map((todo) => {
-            const str = todo.displayableString();
-            return str.substring(0, str.length - 11);
-          })
+          .map((todo) => todo.displayableString())
           .join("\n")
       );
       console.log("\n");
@@ -107,7 +104,11 @@ module.exports = (sequelize, DataTypes) => {
     }
     displayableString() {
       const checkbox = this.completed ? "[x]" : "[ ]";
-      return `${this.id}. ${checkbox} ${this.title} ${this.dueDate}`;
+      const todaydate =
+        this.dueDate === new Date().toLocaleDateString("en-CA")
+          ? ""
+          : ` ${this.dueDate}`;
+      return `${this.id}. ${checkbox} ${this.title} ${todaydate}`;
     }
   }
   Todo.init(
