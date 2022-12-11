@@ -20,15 +20,27 @@ module.exports = (sequelize, DataTypes) => {
       console.log("My Todo list \n");
 
       console.log("Overdue");
-      console.log(await Todo.overdue());
+      console.log(
+        (await Todo.overdue())
+          .map((todo) => todo.displayableString())
+          .join("\n")
+      );
       console.log("\n");
 
       console.log("Due Today");
-      console.log(await Todo.dueToday());
+      console.log(
+        (await Todo.dueToday())
+          .map((todo) => todo.displayableString())
+          .join("\n")
+      );
       console.log("\n");
 
       console.log("Due Later");
-      console.log(await Todo.dueLater());
+      console.log(
+        (await Todo.dueLater())
+          .map((todo) => todo.displayableString())
+          .join("\n")
+      );
     }
 
     static async overdue() {
@@ -39,10 +51,11 @@ module.exports = (sequelize, DataTypes) => {
           },
         },
       });
-      const todoList = todos.map((todo) => {
-        return todo.displayableString();
-      });
-      return todoList.join("\n");
+      // const todoList = todos.map((todo) => {
+      //   return todo.displayableString();
+      // });
+      // return todoList.join('\n');
+      return todos;
     }
 
     static async dueToday() {
@@ -53,13 +66,14 @@ module.exports = (sequelize, DataTypes) => {
           },
         },
       });
-      const todoList1 = todos1.map((todo) => {
-        const str = todo.displayableString();
-        return todo.dueDate === new Date().toLocaleDateString("en-CA")
-          ? str.substring(0, str.length - 10)
-          : str;
-      });
-      return todoList1.join("\n");
+      // const todoList1 = todos1.map((todo) => {
+      //   const str = todo.displayableString();
+      //   return todo.dueDate === new Date().toLocaleDateString('en-CA') ?
+      //     str.substring(0, str.length - 10) :
+      //     str;
+      // });
+      // return todoList1.join('\n');
+      return todos1;
     }
 
     static async dueLater() {
@@ -70,10 +84,11 @@ module.exports = (sequelize, DataTypes) => {
           },
         },
       });
-      const todoList2 = todos2.map((todo) => {
-        return todo.displayableString();
-      });
-      return todoList2.join("\n");
+      // const todoList2 = todos2.map((todo) => {
+      //   return todo.displayableString();
+      // });
+      // return todoList2.join('\n');
+      return todos2;
     }
 
     static async markAsComplete(id) {
