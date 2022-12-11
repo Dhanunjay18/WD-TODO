@@ -32,7 +32,7 @@ module.exports = (sequelize, DataTypes) => {
         (await Todo.dueToday())
           .map((todo) => {
             const str = todo.displayableString();
-            return str.substring(0, str.length - 10);
+            return str.substring(0, str.length - 11);
           })
           .join("\n")
       );
