@@ -30,7 +30,10 @@ module.exports = (sequelize, DataTypes) => {
       console.log("Due Today");
       console.log(
         (await Todo.dueToday())
-          .map((todo) => todo.displayableString())
+          .map((todo) => {
+            const str = todo.displayableString();
+            return str.substring(0, str.length - 10);
+          })
           .join("\n")
       );
       console.log("\n");
@@ -55,6 +58,7 @@ module.exports = (sequelize, DataTypes) => {
       //   return todo.displayableString();
       // });
       // return todoList.join('\n');
+      // console.log(typeof(todos));
       return todos;
     }
 
